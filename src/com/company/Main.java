@@ -14,8 +14,13 @@ public class Main {
             while (!(s = in.readLine()).equals(""))
                 System.out.println(s);
             OutputStream out = client.getOutputStream();
-            String html = "";
-            out.write("HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nContent-Length: \r\n\r\nHello <a href=\"https://www.google.com/\">World!</a>".getBytes());
+            String world = "<a href=\"https://www.google.nl\">World!</a>";
+            String about = "<a href=\"/about\">About!</a>";
+            if(s.equals("HTTP /about"))
+            out.write(("HTTP/1.0 200 OK\r\n" +
+                    "Content-Type: text/html\r\n" +
+                    "Content-Length: \r\n\r\n" +
+                    "Hello " + world + about).getBytes());
 
             in.close();
             out.close();
