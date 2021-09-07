@@ -7,6 +7,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         ServerSocket server = new ServerSocket(8080);
         int teller = 0;
+        int privateTeller = 0;
+
         while(true) {
             Socket client = server.accept();
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -16,22 +18,22 @@ public class Main {
             String about = "Lees de<a href=\"/about\">About</a> Pagina.<br>";
             String counter = "\n\rLees de<a href=\"/counter\"> Counter</a> Pagina.<br>";
             String add = "\n\rLees de<a href=\"/add?a=3&b=4\"> add?a=3&b=4</a> Pagina.<br>";
-            String privatecounter = "\n\rLees de<a href=\"/privatecounter\"> privatecounter</a> Pagina.<br>";
+            String privatecounter = "\n\rLees de<a href=\"/privatecounter?parameter="+privateTeller+"\"> privatecounter</a> Pagina.<br>";
 
             String browser = "U grbruikt: ";
             OutputStream out = client.getOutputStream();
 
             String regel = in.readLine();
-            System.out.println("yoman@@@@" + regel);
+            System.out.println("Dit is de eerste regel:\n\r" + regel);
             while (!(s = in.readLine()).equals("")) {
                 System.out.println(s);
             }
 
             if (regel.startsWith("GET / HTTP/1.1")) {
-                out.write(("HTTP/1.0 200 OK\r\n" +
-                        "Content-Type: text/html\r\n" +
-                        "Content-Length: \r\n\r\n" +
-                        "Hello " + world + about + counter + add + privatecounter + browser).getBytes());
+            out.write(("HTTP/1.0 200 OK\r\n" +
+                    "Content-Type: text/html\r\n" +
+                    "Content-Length: \r\n\r\n" +
+                    "Hello " + world + about + counter + add + privatecounter + browser).getBytes());
             } else if (regel.startsWith("GET /about HTTP/1.1")) {
                 out.write(("HTTP/1.0 200 OK\r\n" +
                         "Content-Type: text/html\r\n" +
@@ -51,12 +53,11 @@ public class Main {
                         "Content-Type: text/html\r\n" +
                         "Content-Length: \r\n\r\n" +
                         "3+4 PAGINA: " + (parseFour + parseThree)).getBytes());
-            } else if (regel.startsWith("GET /privatecounter HTTP/1.1")) {
-                int privTeller = 0;
+            } else if (regel.startsWith("GET /privatecounter?parameter="+privateTeller+" HTTP/1.1")) {
                 out.write(("HTTP/1.0 200 OK\r\n" +
                         "Content-Type: text/html\r\n" +
                         "Content-Length: \r\n\r\n" +
-                        "De teller staat op 1, <a href= \"/privatecounter?parameter=" + (privTeller + 1) + "\">hier</a> hier om te verhogen: ").getBytes());
+                        "De teller staat op 1, <a href= /privatecounter?parameter="+privateTeller+"\">hier</a> hier om te verhogen: ").getBytes());
 //
                 //                default:
 //                    out.write(("HTTP/1.0 404 Not Found\r\n" +

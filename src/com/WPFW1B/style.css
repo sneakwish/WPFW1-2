@@ -2,3 +2,12 @@
     background-color: black;
 }
 
+img{
+    height: 500px;
+    width: 500px;
+}
+.images{
+    float: left;
+    width: 33%;
+    padding: 5px;
+}
