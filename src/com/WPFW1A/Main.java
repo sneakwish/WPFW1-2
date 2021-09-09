@@ -19,21 +19,27 @@ public class Main {
             String counter = "\n\rLees de<a href=\"/counter\"> Counter</a> Pagina.<br>";
             String add = "\n\rLees de<a href=\"/add?a=3&b=4\"> add?a=3&b=4</a> Pagina.<br>";
             String privatecounter = "\n\rLees de<a href=\"/privatecounter?parameter="+privateTeller+"\"> privatecounter</a> Pagina.<br>";
+            String text = "U gebruikt: ";
 
-            String browser = "U grbruikt: ";
             OutputStream out = client.getOutputStream();
 
             String regel = in.readLine();
             System.out.println("Dit is de eerste regel:\n\r" + regel);
+
+            String[] browser = {};
             while (!(s = in.readLine()).equals("")) {
                 System.out.println(s);
+
+                if(s.startsWith("User-Agent")){
+                    browser = s.split(":");
+                }
             }
 
             if (regel.startsWith("GET / HTTP/1.1")) {
-            out.write(("HTTP/1.0 200 OK\r\n" +
-                    "Content-Type: text/html\r\n" +
-                    "Content-Length: \r\n\r\n" +
-                    "Hello " + world + about + counter + add + privatecounter + browser).getBytes());
+                out.write(("HTTP/1.0 200 OK\r\n" +
+                        "Content-Type: text/html\r\n" +
+                        "Content-Length: \r\n\r\n" +
+                        "Hello " + world + about + counter + add + privatecounter + browser[1]).getBytes());
             } else if (regel.startsWith("GET /about HTTP/1.1")) {
                 out.write(("HTTP/1.0 200 OK\r\n" +
                         "Content-Type: text/html\r\n" +
@@ -57,14 +63,15 @@ public class Main {
                 out.write(("HTTP/1.0 200 OK\r\n" +
                         "Content-Type: text/html\r\n" +
                         "Content-Length: \r\n\r\n" +
-                        "De teller staat op 1, <a href= /privatecounter?parameter="+privateTeller+"\">hier</a> hier om te verhogen: ").getBytes());
+                        "De teller staat op 1, <a href= /privatecounter?parameter=" + (privateTeller + 1) + ">hier</a> hier om te verhogen: ").getBytes());
+            }
 //
                 //                default:
 //                    out.write(("HTTP/1.0 404 Not Found\r\n" +
 //                            "Content-Type: text/html\r\n" +
 //                            "Content-Length: \r\n\r\n" +
 //                            "<h1>Error 404: Page Not Found</h1> ").getBytes());
-            }
+
 
 //
 ////                else 404 error page

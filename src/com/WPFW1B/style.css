@@ -1,9 +1,10 @@
-.menu{
-    background-color: black;
-}
-
 *{
     box-sizing: border-box;
+}
+
+body{
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .images{
@@ -16,14 +17,47 @@ img {
     width: 100%;
 }
 
-.dropdown{
-    display:none;
+#image2{
+    border: 5px solid black;
+    padding: 4%;
 }
 
-.dropdown:hover{
-    color:red;
-    display:block;
+.menu{
+    background-color: black;
+
 }
+
+.column{
+
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+
+}
+
+.dropdown-content{
+    display:none;
+
+}
+
+.dropdown-content a{
+    display: block;
+    background-color: #00cc00;
+}
+
+.dropdown:hover .dropdown-content {
+    display: inline-block;
+}
+
+button{
+    background-color: black;
+    color: white;
+    border: none;
+
+}
+
 a {
     text-decoration: none;
     color:white;
@@ -31,4 +65,6 @@ a {
 
 .vestiging{
     display: block;
+    text-decoration: none;
+    blackground-color: black;
 }
