@@ -35,22 +35,22 @@ public class Main {
                 }
             }
 
-            if (regel.startsWith("GET / HTTP/1.1")) {
+            if (regel.contains("GET / HTTP/1.1")) {
                 out.write(("HTTP/1.0 200 OK\r\n" +
                         "Content-Type: text/html\r\n" +
                         "Content-Length: \r\n\r\n" +
                         "Hello " + world + about + counter + add + privatecounter + browser[1]).getBytes());
-            } else if (regel.startsWith("GET /about HTTP/1.1")) {
+            } else if (regel.contains("GET /about HTTP/1.1")) {
                 out.write(("HTTP/1.0 200 OK\r\n" +
                         "Content-Type: text/html\r\n" +
                         "Content-Length: \r\n\r\n" +
                         "ABOUT PAGINA ").getBytes());
-            } else if (regel.startsWith("GET /counter HTTP/1.1")) {
+            } else if (regel.contains("GET /counter HTTP/1.1")) {
                 out.write(("HTTP/1.0 200 OK\r\n" +
                         "Content-Type: text/html\r\n" +
                         "Content-Length: \r\n\r\n" +
                         "Counter PAGINA: " + (teller = teller + 1)).getBytes());
-            } else if (regel.startsWith("GET /add?a=3&b=4 HTTP/1.1")) {
+            } else if (regel.contains("GET /add?a=3&b=4 HTTP/1.1")) {
                 String three = regel.substring(11, 12);
                 String four = regel.substring(15, 16);
                 int parseThree = Integer.parseInt(three);
@@ -59,7 +59,7 @@ public class Main {
                         "Content-Type: text/html\r\n" +
                         "Content-Length: \r\n\r\n" +
                         "3+4 PAGINA: " + (parseFour + parseThree)).getBytes());
-            } else if (regel.startsWith("GET /privatecounter?parameter="+privateTeller+" HTTP/1.1")) {
+            } else if (regel.contains("GET /privatecounter?parameter="+privateTeller+" HTTP/1.1")) {
                 out.write(("HTTP/1.0 200 OK\r\n" +
                         "Content-Type: text/html\r\n" +
                         "Content-Length: \r\n\r\n" +
