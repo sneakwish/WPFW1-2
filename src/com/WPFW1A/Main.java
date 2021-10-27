@@ -4,10 +4,11 @@ import java.net.*;
 import java.io.*;
 
 public class Main {
+    public static int teller = 0;
+    public static int privateTeller = 0;
+
     public static void main(String[] args) throws Exception {
         ServerSocket server = new ServerSocket(8080);
-        int teller = 0;
-        int privateTeller = 0;
 
         while(true) {
             Socket client = server.accept();
@@ -63,24 +64,16 @@ public class Main {
                 out.write(("HTTP/1.0 200 OK\r\n" +
                         "Content-Type: text/html\r\n" +
                         "Content-Length: \r\n\r\n" +
-                        "De teller staat op 1, <a href= /privatecounter?parameter=" + (privateTeller + 1) + ">hier</a> hier om te verhogen: ").getBytes());
+                        "De teller staat op " + privateTeller +", <a href= /privatecounter?parameter=" + (privateTeller = privateTeller + 1) + ">hier</a> hier om te verhogen: ").getBytes());
             }
-//
-                //                default:
-//                    out.write(("HTTP/1.0 404 Not Found\r\n" +
-//                            "Content-Type: text/html\r\n" +
-//                            "Content-Length: \r\n\r\n" +
-//                            "<h1>Error 404: Page Not Found</h1> ").getBytes());
 
-
-//
-////                else 404 error page
-//                else{
-//                    out.write(("HTTP/1.0 404 Not Found\r\n" +
-//                            "Content-Type: text/html\r\n" +
-//                            "Content-Length: \r\n\r\n" +
-//                            "<h1>Error 404: Page Not Found</h1> ").getBytes());
-//                }
+//                else 404 error page
+                else{
+                    out.write(("HTTP/1.0 404 Not Found\r\n" +
+                            "Content-Type: text/html\r\n" +
+                            "Content-Length: \r\n\r\n" +
+                            "<h1>Error 404: Page Not Found</h1> ").getBytes());
+                }
 
             in.close();
             out.close();
